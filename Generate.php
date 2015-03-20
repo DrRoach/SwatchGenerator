@@ -59,6 +59,11 @@ class Generate
         empty($params['swatch']['height']) ? $die = 'height' : Data::$SWATCH['height'] = $params['swatch']['height'];
         empty($params['image']) ? $die = 'image' : Data::$IMAGE = $params['image'];
         empty($params['file']) ? $die = 'file' : Data::$FILE = $params['file'];
+
+        if(!file_exists(Data::$IMAGE)) {
+            throw new Exception('The image you provided couldn\'t be found', 400);
+        }
+
         return $die;
     }
 
