@@ -17,8 +17,8 @@ class Generate
         /**
          * If $die has been set, data is missing. Throw error and give message
          */
-        if($die) {
-            switch($die) {
+        if ($die) {
+            switch ($die) {
                 case 'colour':
                     throw new Exception('You must provide a colour', 400);
                     break;
