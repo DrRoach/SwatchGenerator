@@ -113,7 +113,7 @@ class Image
          * Narrow down the list of colours
          */
         $result = self::$COLOURS;
-        $diff = 10;
+        $diff = 20;
         while(sizeof($result) > 1) {
             if($diff <= 0) {
                 break;
@@ -141,6 +141,11 @@ class Image
             break;
         }
 
+        /**
+         * Check to see if $result is an array to avoid multiple warnings
+         */
+        is_array($result) ? $result = '' : null;
+
         $words = explode(' ', $result);
         foreach($words as $w) {
             switch(strtolower($w)) {
@@ -162,6 +167,8 @@ class Image
                     return 'GREY';
                 case 'black':
                     return 'BLACK';
+                case 'orange':
+                    return 'ORANGE';
             }
         }
 
