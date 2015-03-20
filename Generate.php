@@ -7,7 +7,7 @@ class Generate
         /**
          * Load in the autoloader
          */
-        spl_autoload_register('self::__autoload');
+        spl_autoload_register('self::autoload');
 
         /**
          * Check to make sure that all parameters are added
@@ -68,7 +68,7 @@ class Generate
         return $die;
     }
 
-    public function __autoload($class)
+    public function autoload($class)
     {
         require_once $class.'.php';
     }
