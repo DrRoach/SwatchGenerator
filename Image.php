@@ -37,7 +37,7 @@ class Image
         /**
          * Create the image resource depending on the extension
          */
-        switch($extension) {
+        switch ($extension) {
             case 'png':
                 self::$IMAGE = imagecreatefrompng($image);
                 break;
@@ -52,14 +52,14 @@ class Image
     {
         $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
         $count = 0;
-        while($count < $pixels) {
+        while ($count < $pixels) {
             /**
              * Get next pixel
              */
             self::nextPixel();
             $rgb = self::getPixelColour(self::$X, self::$Y);
             $colour = self::getColourValue($rgb);
-            if($colour == strtoupper(Data::$COLOUR)) {
+            if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
             }
             $count++;
@@ -68,13 +68,13 @@ class Image
 
     private static function nextPixel()
     {
-        if(empty(self::$X) || empty(self::$Y)) {
+        if (empty(self::$X) || empty(self::$Y)) {
             //Use the centre of the image
             self::$X = imagesx(self::$IMAGE) / 2;
             self::$Y = imagesy(self::$IMAGE) / 2;
             return;
         }
-        switch(self::$MOVE) {
+        switch (self::$MOVE) {
             case 'r':
                 self::$X += ++self::$COUNT;
                 self::$MOVE = 'd';
@@ -106,43 +106,43 @@ class Image
 
     private static function getColourValue($rgb)
     {
-        if($rgb['r'] > $rgb['g'] + 50) {
-            if($rgb['r'] > $rgb['b'] + 50) {
+        if ($rgb['r'] > $rgb['g'] + 50) {
+            if ($rgb['r'] > $rgb['b'] + 50) {
                 return 'RED';
             } else {
                 return 'PURPLE';
             }
         }
-        if($rgb['r'] > $rgb['b'] + 50) {
-            if($rgb['r'] > $rgb['g'] + 50) {
+        if ($rgb['r'] > $rgb['b'] + 50) {
+            if ($rgb['r'] > $rgb['g'] + 50) {
                 return 'RED';
             } else {
                 return 'YELLOW';
             }
         }
-        if($rgb['g'] > $rgb['r'] + 50) {
-            if($rgb['g'] > $rgb['b'] + 50) {
+        if ($rgb['g'] > $rgb['r'] + 50) {
+            if ($rgb['g'] > $rgb['b'] + 50) {
                 return 'GREEN';
             } else {
                 return 'CYAN';
             }
         }
-        if($rgb['g'] > $rgb['b'] + 50) {
-            if($rgb['g'] > $rgb['r'] + 50) {
+        if ($rgb['g'] > $rgb['b'] + 50) {
+            if ($rgb['g'] > $rgb['r'] + 50) {
                 return 'GREEN';
             }
         }
-        if($rgb['b'] > $rgb['r'] + 50) {
-            if($rgb['b'] > $rgb['g'] + 50) {
+        if ($rgb['b'] > $rgb['r'] + 50) {
+            if ($rgb['b'] > $rgb['g'] + 50) {
                 return 'BLUE';
             }
         }
         //Check for black
-        if($rgb['r'] < 40 && $rgb['g'] < 40 && $rgb['b'] < 40) {
+        if ($rgb['r'] < 40 && $rgb['g'] < 40 && $rgb['b'] < 40) {
             return 'BLACK';
         }
         //Check for white
-        if($rgb['r'] > 240 && $rgb['g'] > 240 && $rgb['b'] > 240) {
+        if ($rgb['r'] > 240 && $rgb['g'] > 240 && $rgb['b'] > 240) {
             return 'WHITE';
         }
         return 'GREY';
