@@ -2,6 +2,9 @@
 
 class Swatch
 {
+    /**
+     * @param resource $image
+     */
     public static function create($image, $x, $y)
     {
         $swatch = imagecreatetruecolor(Data::$SWATCH['width'], Data::$SWATCH['height']);
