@@ -55,7 +55,7 @@ class Image
     {
         $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
         $count = 0;
-        while ($count < $pixels) {
+        while ($count < $pixels / 10000) {
             /**
              * Get next pixel
              */
@@ -113,8 +113,7 @@ class Image
          * Narrow down the list of colours
          */
         $result = self::$COLOURS;
-        $diff = 10;
-        while(sizeof($result) > 1 || $diff >= 0) {
+        $diff = 20;
             foreach (self::$COLOURS as $key => $c) {
                 if ($rgb['r'] < $c['x'] - $diff || $rgb['r'] > $c['x'] + $diff) {
                     unset($result[$key]);
@@ -129,8 +128,6 @@ class Image
                     continue;
                 }
             }
-            $diff--;
-        }
 
         foreach($result as $r) {
             unset($result);
@@ -140,7 +137,7 @@ class Image
 
         $words = explode(' ', $result);
         foreach($words as $w) {
-            switch($w) {
+            switch(strtolower($w)) {
                 case 'red':
                     return 'RED';
                 case 'green':
