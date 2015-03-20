@@ -49,7 +49,7 @@ class Generate
 
     /**
      * @param $params
-     * @return bool|string
+     * @return string|false
      */
     private static function validateParams($params)
     {
