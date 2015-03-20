@@ -55,7 +55,7 @@ class Image
     {
         $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
         $count = 0;
-        while ($count < $pixels / 10000) {
+        while ($count < $pixels) {
             /**
              * Get next pixel
              */
