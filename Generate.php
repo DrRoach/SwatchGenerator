@@ -49,7 +49,8 @@ class Generate
 
     /**
      * @param $params
-     * @return string|false
+     * @return false|string
+     * @throws Exception
      */
     private static function validateParams($params)
     {
