@@ -1,7 +1,11 @@
-<h1>SWATCHINATOR</h1>
+<!--
+This is an example of using the SwatchGenerator tool.
+-->
+
+<h1>Swatch Generator</h1>
 
 <?php
-require_once 'SwatchGenerator/Generate.php';
+require_once 'Generate.php';
 new Generate([
     'image' => 'snorkel.jpg',
     'swatch' => [
