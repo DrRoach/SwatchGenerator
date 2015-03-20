@@ -55,7 +55,7 @@ class Image
     {
         $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
         $count = 0;
-        while ($count < $pixels / 1000) {
+        while ($count < $pixels) {
             /**
              * Get next pixel
              */
@@ -114,6 +114,10 @@ class Image
          */
         $result = self::$COLOURS;
         $diff = 10;
+        while(sizeof($result) > 1) {
+            if($diff <= 0) {
+                break;
+            }
             foreach (self::$COLOURS as $key => $c) {
                 if ($rgb['r'] < $c['x'] - $diff || $rgb['r'] > $c['x'] + $diff) {
                     unset($result[$key]);
@@ -128,6 +132,8 @@ class Image
                     continue;
                 }
             }
+            $diff--;
+        }
 
         foreach($result as $r) {
             unset($result);
