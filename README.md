@@ -1,5 +1,7 @@
 # SwatchGenerator
-Automatically generate a image swatches using a basic set colour.
+Automatically generate an image swatches using a basic set colour.
+
+Take an image and create a smaller swatch / thumbnail of it automatically depending on a given "simple" colour. You can set the size of the new swatch and set it's name too.
 
 ###Example
 
