@@ -17,8 +17,8 @@ class Generate
         /**
          * If $die has been set, data is missing. Throw error and give message
          */
-        if($die !== false) {
-            switch($die) {
+        if ($die !== false) {
+            switch ($die) {
                 case 'colour':
                     throw new Exception('You must provide a colour', 400);
                 case 'width':
@@ -56,7 +56,7 @@ class Generate
         empty($params['image']) ? $die = 'image' : Data::$IMAGE = $params['image'];
         empty($params['file']) ? $die = 'file' : Data::$FILE = $params['file'];
 
-        if(!file_exists(Data::$IMAGE)) {
+        if (!file_exists(Data::$IMAGE)) {
             throw new Exception('The image you provided couldn\'t be found', 400);
         }
 
