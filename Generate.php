@@ -7,7 +7,7 @@ class Generate
         /**
          * Load in the autoloader
          */
-        spl_autoload_register('self::__autoload');
+        spl_autoload_register('self::autoload');
 
         /**
          * Check to make sure that all parameters are added
@@ -44,7 +44,8 @@ class Generate
 
     /**
      * @param $params
-     * @return string|false
+     * @return false|string
+     * @throws Exception
      */
     private static function validateParams($params)
     {
@@ -54,10 +55,15 @@ class Generate
         empty($params['swatch']['height']) ? $die = 'height' : Data::$SWATCH['height'] = $params['swatch']['height'];
         empty($params['image']) ? $die = 'image' : Data::$IMAGE = $params['image'];
         empty($params['file']) ? $die = 'file' : Data::$FILE = $params['file'];
+
+        if(!file_exists(Data::$IMAGE)) {
+            throw new Exception('The image you provided couldn\'t be found', 400);
+        }
+
         return $die;
     }
 
-    public function __autoload($class)
+    public function autoload($class)
     {
         require_once $class.'.php';
     }

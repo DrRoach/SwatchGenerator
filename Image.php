@@ -7,6 +7,7 @@ class Image
     private static $Y;
     private static $MOVE = 'r';
     private static $COUNT = 0;
+    private static $COLOURS;
 
     public static function findSwatch()
     {
@@ -15,6 +16,8 @@ class Image
          */
         ini_set('memory_limit', '-1');
         self::createResource(Data::$IMAGE);
+
+        self::$COLOURS = json_decode(file_get_contents('Colours.json'), 1);
 
         /**
          * Parse the image
@@ -106,45 +109,69 @@ class Image
 
     private static function getColourValue($rgb)
     {
-        if ($rgb['r'] > $rgb['g'] + 50) {
-            if ($rgb['r'] > $rgb['b'] + 50) {
-                return 'RED';
-            } else {
-                return 'PURPLE';
+        /**
+         * Narrow down the list of colours
+         */
+        $result = self::$COLOURS;
+        $diff = 20;
+        while(sizeof($result) > 1) {
+            if($diff <= 0) {
+                break;
+            }
+            foreach (self::$COLOURS as $key => $c) {
+                if ($rgb['r'] < $c['x'] - $diff || $rgb['r'] > $c['x'] + $diff) {
+                    unset($result[$key]);
+                    continue;
+                }
+                if ($rgb['g'] < $c['y'] - $diff || $rgb['g'] > $c['y'] + $diff) {
+                    unset($result[$key]);
+                    continue;
+                }
+                if ($rgb['b'] < $c['z'] - $diff || $rgb['b'] > $c['z'] + $diff) {
+                    unset($result[$key]);
+                    continue;
+                }
+            }
+            $diff--;
+        }
+
+        foreach($result as $r) {
+            unset($result);
+            $result = $r['label'];
+            break;
+        }
+
+        /**
+         * Check to see if $result is an array to avoid multiple warnings
+         */
+        is_array($result) ? $result = '' : null;
+
+        $words = explode(' ', $result);
+        foreach($words as $w) {
+            switch(strtolower($w)) {
+                case 'red':
+                    return 'RED';
+                case 'green':
+                    return 'GREEN';
+                case 'blue':
+                    return 'BLUE';
+                case 'purple':
+                    return 'PURPLE';
+                case 'cyan':
+                    return 'CYAN';
+                case 'yellow':
+                    return 'YELLOW';
+                case 'white':
+                    return 'WHITE';
+                case 'grey':
+                    return 'GREY';
+                case 'black':
+                    return 'BLACK';
+                case 'orange':
+                    return 'ORANGE';
             }
         }
-        if ($rgb['r'] > $rgb['b'] + 50) {
-            if ($rgb['r'] > $rgb['g'] + 50) {
-                return 'RED';
-            } else {
-                return 'YELLOW';
-            }
-        }
-        if ($rgb['g'] > $rgb['r'] + 50) {
-            if ($rgb['g'] > $rgb['b'] + 50) {
-                return 'GREEN';
-            } else {
-                return 'CYAN';
-            }
-        }
-        if ($rgb['g'] > $rgb['b'] + 50) {
-            if ($rgb['g'] > $rgb['r'] + 50) {
-                return 'GREEN';
-            }
-        }
-        if ($rgb['b'] > $rgb['r'] + 50) {
-            if ($rgb['b'] > $rgb['g'] + 50) {
-                return 'BLUE';
-            }
-        }
-        //Check for black
-        if ($rgb['r'] < 40 && $rgb['g'] < 40 && $rgb['b'] < 40) {
-            return 'BLACK';
-        }
-        //Check for white
-        if ($rgb['r'] > 240 && $rgb['g'] > 240 && $rgb['b'] > 240) {
-            return 'WHITE';
-        }
-        return 'GREY';
+
+        return strtoupper($result);
     }
 }
