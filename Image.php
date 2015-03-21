@@ -114,8 +114,8 @@ class Image
          */
         $result = self::$COLOURS;
         $diff = 20;
-        while(sizeof($result) > 1) {
-            if($diff <= 0) {
+        while (sizeof($result) > 1) {
+            if ($diff <= 0) {
                 break;
             }
             foreach (self::$COLOURS as $key => $c) {
@@ -135,7 +135,7 @@ class Image
             $diff--;
         }
 
-        foreach($result as $r) {
+        foreach ($result as $r) {
             unset($result);
             $result = $r['label'];
             break;
@@ -147,8 +147,8 @@ class Image
         is_array($result) ? $result = '' : null;
 
         $words = explode(' ', $result);
-        foreach($words as $w) {
-            switch(strtolower($w)) {
+        foreach ($words as $w) {
+            switch (strtolower($w)) {
                 case 'red':
                     return 'RED';
                 case 'green':
