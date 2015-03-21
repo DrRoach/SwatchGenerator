@@ -17,23 +17,18 @@ class Generate
         /**
          * If $die has been set, data is missing. Throw error and give message
          */
-        if ($die) {
+        if ($die === false) {
             switch ($die) {
                 case 'colour':
                     throw new Exception('You must provide a colour', 400);
-                    break;
                 case 'width':
                     throw new Exception('You must provide a swatch width', 400);
-                    break;
                 case 'height':
                     throw new Exception('You must provide a swatch height', 400);
-                    break;
                 case 'image':
                     throw new Exception('You must provide a image', 400);
-                    break;
                 case 'file':
                     throw new Exception('You must provide a swatch file name', 400);
-                    break;
                 default:
                     throw new Exception('There are parameters missing', 400);
             }
