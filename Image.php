@@ -76,7 +76,7 @@ class Image
         }
         switch (self::$MOVE) {
             case 'r':
-                self::$COUNT += 20;
+                self::$COUNT += Data::$ACCURACY;
                 self::$X += self::$COUNT;
                 self::$MOVE = 'd';
                 break;
@@ -85,7 +85,7 @@ class Image
                 self::$MOVE = 'l';
                 break;
             case 'l':
-                self::$COUNT += 20;
+                self::$COUNT += Data::$ACCURACY;
                 self::$X -= self::$COUNT;
                 self::$MOVE = 'u';
                 break;
