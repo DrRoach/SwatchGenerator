@@ -53,7 +53,8 @@ class Image
 
     private static function imageParse()
     {
-        while (self::$X < imagesx(self::$IMAGE) && self::$Y < imagesy(self::$IMAGE)) {
+        //Add one to keep in image bounds
+        while (self::$X + 1 < imagesx(self::$IMAGE) && self::$Y + 1 < imagesy(self::$IMAGE)) {
             /**
              * Get next pixel
              */
@@ -63,6 +64,9 @@ class Image
             if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
             }
+        }
+        if(empty($colour)) {
+            throw new Exception("The colour that you entered couldn't be found", 500);
         }
     }
 
@@ -93,6 +97,12 @@ class Image
                 self::$Y -= self::$COUNT;
                 self::$MOVE = 'r';
                 break;
+        }
+        if(self::$X >= imagesx(self::$IMAGE)) {
+            self::$X = imagesx(self::$IMAGE) - 1;
+        }
+        if(self::$Y >= imagesy(self::$IMAGE)) {
+            self::$Y = imagesy(self::$IMAGE) - 1;
         }
     }
 
@@ -138,6 +148,10 @@ class Image
             unset($result);
             $result = $r['label'];
             break;
+        }
+
+        if(is_array($result)) {
+            return null;
         }
 
         $words = explode(' ', $result);
