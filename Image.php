@@ -79,7 +79,8 @@ class Image
         }
         switch (self::$MOVE) {
             case 'r':
-                self::$X += ++self::$COUNT;
+                self::$COUNT += 2;
+                self::$X += self::$COUNT;
                 self::$MOVE = 'd';
                 break;
             case 'd':
@@ -87,7 +88,8 @@ class Image
                 self::$MOVE = 'l';
                 break;
             case 'l':
-                self::$X -= ++self::$COUNT;
+                self::$COUNT += 2;
+                self::$X -= self::$COUNT;
                 self::$MOVE = 'u';
                 break;
             case 'u':
