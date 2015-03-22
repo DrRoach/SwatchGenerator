@@ -53,8 +53,6 @@ class Image
 
     private static function imageParse()
     {
-        $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
-        $count = 0;
         while (self::$X < imagesx(self::$IMAGE) && self::$Y < imagesy(self::$IMAGE)) {
             /**
              * Get next pixel
@@ -65,7 +63,6 @@ class Image
             if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
             }
-            $count++;
         }
     }
 
