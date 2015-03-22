@@ -140,11 +140,6 @@ class Image
             break;
         }
 
-        /**
-         * Check to see if $result is an array to avoid multiple warnings
-         */
-        is_array($result) ? $result = '' : null;
-
         $words = explode(' ', $result);
         foreach($words as $w) {
             switch(strtolower($w)) {
