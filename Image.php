@@ -76,7 +76,7 @@ class Image
         }
         switch (self::$MOVE) {
             case 'r':
-                self::$COUNT += 2;
+                self::$COUNT += 20;
                 self::$X += self::$COUNT;
                 self::$MOVE = 'd';
                 break;
@@ -85,7 +85,7 @@ class Image
                 self::$MOVE = 'l';
                 break;
             case 'l':
-                self::$COUNT += 2;
+                self::$COUNT += 20;
                 self::$X -= self::$COUNT;
                 self::$MOVE = 'u';
                 break;
@@ -112,12 +112,12 @@ class Image
          * Narrow down the list of colours
          */
         $result = self::$COLOURS;
-        $diff = 20;
+        $diff = 15;
         while(sizeof($result) > 1) {
             if($diff <= 0) {
                 break;
             }
-            foreach (self::$COLOURS as $key => $c) {
+            foreach ($result as $key => $c) {
                 if ($rgb['r'] < $c['x'] - $diff || $rgb['r'] > $c['x'] + $diff) {
                     unset($result[$key]);
                     continue;
