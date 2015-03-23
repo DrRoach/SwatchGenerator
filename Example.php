@@ -18,4 +18,4 @@ new Generate([
     'accuracy' => 1
 ]);
 $end = microtime(true);
-echo 'Total = ' . ($end - $start);
+echo 'Total = '.($end - $start);
