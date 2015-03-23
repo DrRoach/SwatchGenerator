@@ -8,3 +8,4 @@
 
 - Reduced loading from 10 seconds to 0.5 seconds
 - Added optional accuracy parameter
+- Improved error checking

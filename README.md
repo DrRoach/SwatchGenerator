@@ -8,15 +8,27 @@ Take an image and create a smaller swatch / thumbnail of it automatically depend
 ```PHP
 require_once 'Generate.php';
 new Generate([
-    'image' => 'snorkel.jpg',
+    'image' => 'rgb.png',
     'swatch' => [
-        'width' => 200,
-        'height' => 200
+        'width' => 100,
+        'height' => 100
     ],
-    'colour' => 'blue',
-    'file' => 'swatch'
+    'colour' => 'red',
+    'file' => 'swatch',
+    'accuracy' => 1
 ]);
 ```
+
+#####Original Image:
+![Original snorkel]
+(http://i.imgur.com/L7C2CQP.png)
+
+#####Generated Swatch:
+![Generated swatch]
+(http://i.imgur.com/i0Ei7te.png)
+
+#####Time taken:
+2.4309871196747 seconds
 
 ###Available Colours
 - [x] Red
@@ -28,11 +40,10 @@ new Generate([
 - [x] White
 - [x] Black
 - [x] Grey
-- [ ] Orange
+- [x] Orange
 - [ ] Pink
 
 ###TODO
-- [ ] Improve the colour finding accuracy
 - [ ] Improve loading speed on larger images
 - [ ] Improve code quality
 - [ ] Allow choice between png and jpg swatches

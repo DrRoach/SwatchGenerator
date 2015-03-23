@@ -10,12 +10,12 @@ require_once 'Generate.php';
 new Generate([
     'image' => 'rgb.png',
     'swatch' => [
-        'width' => 200,
-        'height' => 200
+        'width' => 100,
+        'height' => 100
     ],
-    'colour' => 'blue',
+    'colour' => 'red',
     'file' => 'swatch',
-    'accuracy' => 20
+    'accuracy' => 1
 ]);
 $end = microtime(true);
 echo 'Total = ' . ($end - $start);
