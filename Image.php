@@ -65,7 +65,7 @@ class Image
                 break;
             }
         }
-        if(empty($colour)) {
+        if (empty($colour)) {
             throw new Exception("The colour that you entered couldn't be found", 500);
         }
     }
@@ -98,10 +98,10 @@ class Image
                 self::$MOVE = 'r';
                 break;
         }
-        if(self::$X >= imagesx(self::$IMAGE)) {
+        if (self::$X >= imagesx(self::$IMAGE)) {
             self::$X = imagesx(self::$IMAGE) - 1;
         }
-        if(self::$Y >= imagesy(self::$IMAGE)) {
+        if (self::$Y >= imagesy(self::$IMAGE)) {
             self::$Y = imagesy(self::$IMAGE) - 1;
         }
     }
@@ -123,8 +123,8 @@ class Image
          */
         $result = self::$COLOURS;
         $diff = 15;
-        while(sizeof($result) > 1) {
-            if($diff <= 0) {
+        while (sizeof($result) > 1) {
+            if ($diff <= 0) {
                 break;
             }
             foreach ($result as $key => $c) {
@@ -144,13 +144,13 @@ class Image
             $diff--;
         }
 
-        foreach($result as $r) {
+        foreach ($result as $r) {
             unset($result);
             $result = $r['label'];
             break;
         }
 
-        if(is_array($result)) {
+        if (is_array($result)) {
             return null;
         }
 
@@ -162,8 +162,8 @@ class Image
     private static function parseColourName($colour)
     {
         $words = explode(' ', $colour);
-        foreach($words as $w) {
-            switch(strtolower($w)) {
+        foreach ($words as $w) {
+            switch (strtolower($w)) {
                 case 'red':
                     return 'RED';
                 case 'green':
