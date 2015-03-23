@@ -154,7 +154,14 @@ class Image
             return null;
         }
 
-        $words = explode(' ', $result);
+        $colour = self::parseColourName($result);
+
+        return strtoupper($colour);
+    }
+
+    private static function parseColourName($colour)
+    {
+        $words = explode(' ', $colour);
         foreach($words as $w) {
             switch(strtolower($w)) {
                 case 'red':
@@ -179,7 +186,5 @@ class Image
                     return 'ORANGE';
             }
         }
-
-        return strtoupper($result);
     }
 }
