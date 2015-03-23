@@ -30,6 +30,27 @@ new Generate([
 #####Time taken:
 2.4309871196747 seconds
 
+###Parameters
+
+#####image
+The name of your image.
+
+#####swatch
+######width
+The width of the swatch.
+
+######height
+The height of the swatch.
+
+#####colour
+The colour that you want to base the swatch on.
+
+#####file
+The name of the outputted swatch.
+
+#####accuracy (optional)
+The colour finding accuracy in pixels.
+
 ###Available Colours
 - [x] Red
 - [x] Green
