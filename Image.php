@@ -144,7 +144,7 @@ class Image
             $diff--;
         }
 
-        foreach($result as $r) {
+        foreach ($result as $r) {
             unset($result);
             $result = $r['label'];
             break;
@@ -155,8 +155,8 @@ class Image
         }
 
         $words = explode(' ', $result);
-        foreach($words as $w) {
-            switch(strtolower($w)) {
+        foreach ($words as $w) {
+            switch (strtolower($w)) {
                 case 'red':
                     return 'RED';
                 case 'green':
