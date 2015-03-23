@@ -57,7 +57,7 @@ class Generate
         empty($params['file']) ? $die = 'file' : Data::$FILE = $params['file'];
         empty($params['accuracy']) ? null : Data::$ACCURACY = $params['accuracy'];
 
-        if(!file_exists(Data::$IMAGE)) {
+        if (!file_exists(Data::$IMAGE)) {
             throw new Exception('The image you provided couldn\'t be found', 400);
         }
 
