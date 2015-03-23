@@ -5,13 +5,17 @@ This is an example of using the SwatchGenerator tool.
 <h1>Swatch Generator</h1>
 
 <?php
+$start = microtime(true);
 require_once 'Generate.php';
 new Generate([
-    'image' => 'snorkel.jpg',
+    'image' => 'rgb.png',
     'swatch' => [
-        'width' => 200,
-        'height' => 200
+        'width' => 100,
+        'height' => 100
     ],
-    'colour' => 'blue',
-    'file' => 'swatch'
+    'colour' => 'red',
+    'file' => 'swatch',
+    'accuracy' => 1
 ]);
+$end = microtime(true);
+echo 'Total = ' . ($end - $start);

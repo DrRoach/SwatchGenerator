@@ -1,0 +1,11 @@
+###Version 2.0
+
+- Much improved colour recognition
+- Added orange as a available colour
+- Improved data validation
+
+###Version 3.0
+
+- Reduced loading from 10 seconds to 0.5 seconds
+- Added optional accuracy parameter
+- Improved error checking

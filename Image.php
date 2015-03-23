@@ -53,9 +53,8 @@ class Image
 
     private static function imageParse()
     {
-        $pixels = imagesx(self::$IMAGE) * imagesy(self::$IMAGE);
-        $count = 0;
-        while ($count < $pixels) {
+        //Add one to keep in image bounds
+        while (self::$X + 1 < imagesx(self::$IMAGE) && self::$Y + 1 < imagesy(self::$IMAGE)) {
             /**
              * Get next pixel
              */
@@ -65,7 +64,9 @@ class Image
             if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
             }
-            $count++;
+        }
+        if(empty($colour)) {
+            throw new Exception("The colour that you entered couldn't be found", 500);
         }
     }
 
@@ -79,7 +80,8 @@ class Image
         }
         switch (self::$MOVE) {
             case 'r':
-                self::$X += ++self::$COUNT;
+                self::$COUNT += Data::$ACCURACY;
+                self::$X += self::$COUNT;
                 self::$MOVE = 'd';
                 break;
             case 'd':
@@ -87,13 +89,20 @@ class Image
                 self::$MOVE = 'l';
                 break;
             case 'l':
-                self::$X -= ++self::$COUNT;
+                self::$COUNT += Data::$ACCURACY;
+                self::$X -= self::$COUNT;
                 self::$MOVE = 'u';
                 break;
             case 'u':
                 self::$Y -= self::$COUNT;
                 self::$MOVE = 'r';
                 break;
+        }
+        if(self::$X >= imagesx(self::$IMAGE)) {
+            self::$X = imagesx(self::$IMAGE) - 1;
+        }
+        if(self::$Y >= imagesy(self::$IMAGE)) {
+            self::$Y = imagesy(self::$IMAGE) - 1;
         }
     }
 
@@ -113,12 +122,12 @@ class Image
          * Narrow down the list of colours
          */
         $result = self::$COLOURS;
-        $diff = 20;
+        $diff = 15;
         while(sizeof($result) > 1) {
             if($diff <= 0) {
                 break;
             }
-            foreach (self::$COLOURS as $key => $c) {
+            foreach ($result as $key => $c) {
                 if ($rgb['r'] < $c['x'] - $diff || $rgb['r'] > $c['x'] + $diff) {
                     unset($result[$key]);
                     continue;
@@ -141,10 +150,9 @@ class Image
             break;
         }
 
-        /**
-         * Check to see if $result is an array to avoid multiple warnings
-         */
-        is_array($result) ? $result = '' : null;
+        if(is_array($result)) {
+            return null;
+        }
 
         $words = explode(' ', $result);
         foreach($words as $w) {
