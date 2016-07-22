@@ -13,6 +13,11 @@ class Image
     {
         /**
          * Create the image as a resource
+         * TODO:
+         * This can be quite slow at the minute. Runnning 'Example.php', this function
+         * takes 0.3s to load, Nearly a third of the total load time. After further looking,
+         * `imagecreatefrompng()` takes about 0.3s to load. There is nothing that can
+         * be done about this unfortunately.
          */
         ini_set('memory_limit', '-1');
         self::createResource(Data::$IMAGE);
@@ -21,11 +26,16 @@ class Image
 
         /**
          * Parse the image
+         * TODO:
+         * This can take a long time to load, this needs to be improved as it is the biggest
+         * bottleneck in the system at the minute. Running 'Example.php', it takes around 0.8s
+         * to load.
          */
         self::imageParse();
 
         /**
          * Create the swatch
+         * This takes no time to run, cannot be improved for efficiency
          */
         Swatch::create(self::$IMAGE, self::$X, self::$Y);
     }
@@ -35,11 +45,13 @@ class Image
         /**
          * Get the Image file extension
          */
+        $s = microtime(true);
         $extension = substr($image, strripos($image, '.') + 1);
 
         /**
          * Create the image resource depending on the extension
          */
+        $s = microtime(true);
         switch ($extension) {
             case 'png':
                 self::$IMAGE = imagecreatefrompng($image);
@@ -53,8 +65,43 @@ class Image
 
     private static function imageParse()
     {
+        $previousColours = [];
         //Add one to keep in image bounds
         while (self::$X + 1 < imagesx(self::$IMAGE) && self::$Y + 1 < imagesy(self::$IMAGE)) {
+            /**
+             * If the last five colours are the same, just a block
+             */
+            $pos = sizeof($previousColours) - 1;
+            if ($pos > 5) {
+                $same = true;
+                for (; $pos > 0; $pos--) {
+                    if ($colour != $previousColours[$pos]) {
+                        $same = false;
+                    }
+                }
+                if ($same == true) {
+                    self::$COUNT += (Data::$ACCURACY * 3);
+                    switch(self::$MOVE) {
+                    case 'r':
+                        self::$X += self::$COUNT;
+                        self::$MOVE = 'd';
+                        break;
+                    case 'd':
+                        self::$Y += self::$COUNT;
+                        self::$MOVE = 'l';
+                        break;
+                    case 'l':
+                        self::$X -= self::$COUNT;
+                        self::$MOVE = 'u';
+                        break;
+                    case 'u':
+                        self::$Y -= self::$COUNT;
+                        self::$MOVE = 'r';
+                        break;
+                    }
+                }
+            }
+
             /**
              * Get next pixel
              */
@@ -64,6 +111,7 @@ class Image
             if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
             }
+            $previousColours[] = $colour;
         }
         if (empty($colour)) {
             throw new Exception("The colour that you entered couldn't be found", 500);
