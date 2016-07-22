@@ -67,6 +67,7 @@ class Image
     {
         $previousColours = [];
         //Add one to keep in image bounds
+        $i =0;
         while (self::$X + 1 < imagesx(self::$IMAGE) && self::$Y + 1 < imagesy(self::$IMAGE)) {
             /**
              * If the last five colours are the same, skip over this part of the image.
@@ -76,15 +77,16 @@ class Image
              * `$COUNT` is moved by 3 accuracy pixels but can this be more?
              */
             $pos = sizeof($previousColours) - 1;
-            if ($pos > 5) {
+            if ($pos >= 4) {
                 $same = true;
-                for (; $pos > 0; $pos--) {
+                for ($x = 0; $pos > 0; $pos--) {
                     if ($colour != $previousColours[$pos]) {
                         $same = false;
                     }
                 }
                 //If the last five colours have been the same, jump our count
                 if ($same == true) {
+                    $i++;
                     self::$COUNT += (Data::$ACCURACY * 3);
                 }
             }
@@ -97,6 +99,9 @@ class Image
             $colour = self::getColourValue($rgb);
             if ($colour == strtoupper(Data::$COLOUR)) {
                 break;
+            }
+            if (sizeof($previousColours) > 4) {
+                $previousColours = array_slice($previousColours, 1, 4);
             }
             $previousColours[] = $colour;
         }
