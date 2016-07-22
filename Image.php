@@ -69,7 +69,11 @@ class Image
         //Add one to keep in image bounds
         while (self::$X + 1 < imagesx(self::$IMAGE) && self::$Y + 1 < imagesy(self::$IMAGE)) {
             /**
-             * If the last five colours are the same, just a block
+             * If the last five colours are the same, skip over this part of the image.
+             * Decreases time taken to find swatch.
+             * TODO:
+             * Move this into it's own function and potentially make it more efficient. Currently,
+             * `$COUNT` is moved by 3 accuracy pixels but can this be more?
              */
             $pos = sizeof($previousColours) - 1;
             if ($pos > 5) {
