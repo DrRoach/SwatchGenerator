@@ -19,3 +19,5 @@ new Generate([
 ]);
 $end = microtime(true);
 echo 'Total = '.($end - $start);
+
+echo '<br><br><img src="swatch.png">';

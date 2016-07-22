@@ -12,56 +12,45 @@ class Generate
         /**
          * Check to make sure that all parameters are added
          */
-        $die = self::validateParams($params);
-
+        $this->validateInput($params);
+	    
         /**
-         * If $die has been set, data is missing. Throw error and give message
+         * Store all of the data that we need to find our swatch
          */
-        if ($die !== false) {
-            switch ($die) {
-                case 'colour':
-                    throw new Exception('You must provide a colour', 400);
-                case 'width':
-                    throw new Exception('You must provide a swatch width', 400);
-                case 'height':
-                    throw new Exception('You must provide a swatch height', 400);
-                case 'image':
-                    throw new Exception('You must provide a image', 400);
-                case 'file':
-                    throw new Exception('You must provide a swatch file name', 400);
-                default:
-                    throw new Exception('There are parameters missing', 400);
-            }
-        }
-
+        Data::$COLOUR = $params['colour'];
+        Data::$SWATCH['width'] = $params['swatch']['width'];
+        Data::$SWATCH['height'] = $params['swatch']['height'];
+        Data::$IMAGE = $params['image'];
+        Data::$FILE = $params['file'];
+        Data::$ACCURACY = (!empty($params['accuracy']) ? $params['accuracy'] : null);
+		
         /**
          * Parse the image to get the swatch coordinates
          */
         Image::findSwatch();
-
-        Data::$COLOUR = $params['colour'];
     }
 
-    /**
-     * @param $params
-     * @return false|string
-     * @throws Exception
-     */
-    private static function validateParams($params)
+    private function validateInput($params)
     {
-        $die = false;
-        empty($params['colour']) ? $die = 'colour' : Data::$COLOUR = $params['colour'];
-        empty($params['swatch']['width']) ? $die = 'width' : Data::$SWATCH['width'] = $params['swatch']['width'];
-        empty($params['swatch']['height']) ? $die = 'height' : Data::$SWATCH['height'] = $params['swatch']['height'];
-        empty($params['image']) ? $die = 'image' : Data::$IMAGE = $params['image'];
-        empty($params['file']) ? $die = 'file' : Data::$FILE = $params['file'];
-        empty($params['accuracy']) ? null : Data::$ACCURACY = $params['accuracy'];
+        switch(true) {
+	        case (empty($params['colour'])) :
+                throw new Exception('You must provide a colour.', 400);
+            break;
+            case (empty($params['swatch']['width'])) :
+                throw new Exception('You must provide a swatch width.', 400);
+            break;
+            case (empty($params['swatch']['height'])) :
+                throw new Exception('You must provide a swatch height.', 400);
+            break;
+            case (empty($params['image'])) :
+                throw new Exception('You must provide an image.', 400);
+            break;
+            case (empty($params['file'])) :
+                throw new Exception('You must prove a swatch file name.', 400);
+            break;
+	    }
 
-        if (!file_exists(Data::$IMAGE)) {
-            throw new Exception('The image you provided couldn\'t be found', 400);
-        }
-
-        return $die;
+        return true;
     }
 
     public function autoload($class)
