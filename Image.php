@@ -83,26 +83,9 @@ class Image
                         $same = false;
                     }
                 }
+                //If the last five colours have been the same, jump our count
                 if ($same == true) {
                     self::$COUNT += (Data::$ACCURACY * 3);
-                    switch(self::$MOVE) {
-                    case 'r':
-                        self::$X += self::$COUNT;
-                        self::$MOVE = 'd';
-                        break;
-                    case 'd':
-                        self::$Y += self::$COUNT;
-                        self::$MOVE = 'l';
-                        break;
-                    case 'l':
-                        self::$X -= self::$COUNT;
-                        self::$MOVE = 'u';
-                        break;
-                    case 'u':
-                        self::$Y -= self::$COUNT;
-                        self::$MOVE = 'r';
-                        break;
-                    }
                 }
             }
 
