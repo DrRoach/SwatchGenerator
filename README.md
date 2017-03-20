@@ -3,7 +3,7 @@ Automatically generate an image swatches using a basic set colour.
 
 Take an image and create a smaller swatch / thumbnail of it automatically depending on a given "simple" colour. You can set the size of the new swatch and set it's name too.
 
-###Example
+### Example
 
 ```PHP
 require_once 'Generate.php';
@@ -19,39 +19,39 @@ new Generate([
 ]);
 ```
 
-#####Original Image:
+##### Original Image:
 ![Original snorkel]
 (http://i.imgur.com/L7C2CQP.png)
 
-#####Generated Swatch:
+##### Generated Swatch:
 ![Generated swatch]
 (http://i.imgur.com/i0Ei7te.png)
 
-#####Time taken:
+##### Time taken:
 2.4309871196747 seconds
 
-###Parameters
+### Parameters
 
-#####image
+##### image
 The name of your image.
 
-#####swatch
-######width
+##### swatch
+###### width
 The width of the swatch.
 
-######height
+###### height
 The height of the swatch.
 
-#####colour
+##### colour
 The colour that you want to base the swatch on.
 
-#####file
+##### file
 The name of the outputted swatch.
 
-#####accuracy (optional)
+##### accuracy (optional)
 The colour finding accuracy in pixels.
 
-###Available Colours
+### Available Colours
 - [x] Red
 - [x] Green
 - [x] Blue
@@ -64,7 +64,7 @@ The colour finding accuracy in pixels.
 - [x] Orange
 - [ ] Pink
 
-###TODO
+### TODO
 - [ ] Improve loading speed on larger images
 - [ ] Improve code quality
 - [ ] Allow choice between png and jpg swatches
