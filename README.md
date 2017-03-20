@@ -20,12 +20,10 @@ new Generate([
 ```
 
 ##### Original Image:
-![Original snorkel]
-(http://i.imgur.com/L7C2CQP.png)
+![Original snorkel](http://i.imgur.com/L7C2CQP.png)
 
 ##### Generated Swatch:
-![Generated swatch]
-(http://i.imgur.com/i0Ei7te.png)
+![Generated swatch](http://i.imgur.com/i0Ei7te.png)
 
 ##### Time taken:
 2.4309871196747 seconds
